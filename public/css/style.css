@@ -1,0 +1,16 @@
+.container{
+    padding-top: 2vh;
+}
+
+.footer{
+    width:100%;
+    position: fixed;
+    height:3vh;
+    bottom: 0;
+    text-align: center;
+}
+
+.ml-auto .dropdown-menu {
+    left: auto !important;
+    right: 0px;
+}

@@ -1,0 +1,46 @@
+{% extends 'layouts/app.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 offset-3 mt-5">
+            <div class="card">
+                <div class="card-header">
+                    Sign Up
+                </div>
+                <div class="card-body">
+                    <form action="{{ path_for('auth.register') }}" method="post" autocomplete="off">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" placeholder="you@domain.com" class="form-control {{ errors.email ? 'is-invalid' : '' }}" value="{{ old.email }}">
+                            <span class="invalid-feedback">
+                                {{ errors.email | first }}
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name" class="form-control {{ errors.name ? 'is-invalid' : '' }}" value="{{ old.name }}">
+                            <span class="invalid-feedback">
+                                {{ errors.name | first }}
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password"  class="form-control {{ errors.password ? 'is-invalid' : '' }}">
+                            <span class="invalid-feedback">
+                                {{ errors.password | first }}
+                            </span>
+                        </div>
+
+                        {{ csrf.field | raw }}
+
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
