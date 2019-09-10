@@ -1,4 +1,5 @@
 vendor/
 storage/cache
+.env
 .DS_Store
 .idea

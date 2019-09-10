@@ -7,10 +7,10 @@ session_start();
 require_once __DIR__ . '/../vendor/autoload.php';
 
 (Dotenv\Dotenv::create(__DIR__.'/../'))->load();
-
+date_default_timezone_set(getenv('APP_TIMEZONE'));
 $app=new \Slim\App([
     'settings' => [
-        'displayErrorDetails' => getenv('APP_ENV' == 'development'),
+        'displayErrorDetails' => getenv('APP_ENV') == 'dev',
         'appName' => getenv('APP_NAME'),
         'determineRouteBeforeAppMiddleware' => true,
         'addContentLengthHeader' => false,
@@ -40,7 +40,7 @@ $container['flash']=function ($container){
 
 $container['view']=function ($container){
     $view=new \Slim\Views\Twig(__DIR__.'/../resources/views', [
-        'cache' => getenv('APP_ENV') == 'development' ? 'false' : __DIR__.'/../storage/cache/views',
+        'cache' => getenv('APP_ENV') === 'dev' ? false : __DIR__.'/../storage/cache/views',
     ]);
 
     $router=$container->get('router');
@@ -50,6 +50,9 @@ $container['view']=function ($container){
     $view->getEnvironment()->addGlobal('auth', [
         'check' => $container->auth->check(),
         'user' => $container->auth->user(),
+    ]);
+    $view->getEnvironment()->addGlobal('app', [
+        'name' => getenv('APP_NAME')
     ]);
 
     $view->getEnvironment()->addGlobal('flash', $container->flash);
