@@ -1,5 +1,15 @@
 {% extends 'layouts/app.twig' %}
 
 {% block content %}
-Home
+<div class="card card-default">
+    <div class="card-header">
+        Home
+    </div>
+
+    <div class="card-body">
+        <p>
+            Yo! you've logged in, {{ auth.user.name }}
+        </p>
+    </div>
+</div>
 {% endblock %}
