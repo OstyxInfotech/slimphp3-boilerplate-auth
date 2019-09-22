@@ -61,12 +61,14 @@ $container['view']=function ($container){
 };
 
 
-
 $app->add(new \App\Middleware\ValidationErrorsMiddleware($container));
 $app->add(new \App\Middleware\OldInputMiddleware($container));
-$app->add(new \App\Middleware\CsrfViewMiddleware($container));
 
-$app->add($container->csrf);
+$container['csrf'] = function ($c) {
+    $csrf = new \Slim\Csrf\Guard();
+    $csrf->setPersistentTokenMode(true);
+    return $csrf;
+};
 
 v::with('App\\Validation\\Rules\\');
 

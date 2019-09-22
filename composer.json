@@ -6,7 +6,9 @@
         "respect/validation": "^1.1",
         "slim/csrf": "^0.8.3",
         "slim/flash": "^0.4.0",
-        "vlucas/phpdotenv": "^3.4"
+        "vlucas/phpdotenv": "^3.4",
+        "tuupola/cors-middleware": "^1.0",
+      "ext-json": "*"
     },
     "autoload": {
         "psr-4": {

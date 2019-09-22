@@ -6,7 +6,7 @@ use Respect\Validation\Validator as Respect;
 use Respect\Validation\Exceptions\NestedValidationException;
 class Validator
 {
-    protected $errors;
+    public $errors;
 
     public function validate($request, array $rules)
     {

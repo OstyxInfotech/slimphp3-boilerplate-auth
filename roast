@@ -1,0 +1,46 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+(Dotenv\Dotenv::create(__DIR__))->load();
+
+if (!isset($argv[1])) {
+    exit('Please provide args' . PHP_EOL);
+}
+$arg = $argv[1];
+
+switch ($arg) {
+    case 'key:generate':
+        $path = __DIR__ . '/.env';
+        if (file_exists($path)) {
+            file_put_contents($path, str_replace(
+                'APP_KEY=' . getenv('APP_KEY'), 'APP_KEY=' . getUniqueKey(), file_get_contents($path)
+            ));
+        }
+        echo 'Key saved to .env file' . PHP_EOL;
+        exit(0);
+        break;
+    case 'serve':
+        try {
+            echo 'Started server on http://localhost:8090' . PHP_EOL;
+            shell_exec('php -S localhost:8090 -t public');
+            echo 'done';
+        } catch (Exception $exception) {
+            throw($exception);
+        }
+        exit(0);
+        break;
+    default:
+        exit("Unrecognized command '$arg'" . PHP_EOL);
+}
+
+function getUniqueKey ()
+{
+    $key = bin2hex(random_bytes(32));
+    $splchars = ['$', '^', '#', '@', '!', '_', '-', '+', '+'];
+    for ($i = 1; $i <= 10; $i++) {
+        $key[rand(0, 31)] = $splchars[array_rand($splchars, 1)];
+    }
+    return $key;
+}
